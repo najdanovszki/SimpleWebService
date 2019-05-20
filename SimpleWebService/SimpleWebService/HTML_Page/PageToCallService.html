@@ -1,0 +1,53 @@
+﻿<!--<!DOCTYPE html>-->
+<html>
+<head>
+    <title>SOAP Javascript Test</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function soap() {
+            var xmlhttp = new XMLHttpRequest();
+
+            //replace second argument with the path to your Secret Server webservices
+            xmlhttp.open('POST', 'http://localhost:54520/AcceptFromMail.svc');
+
+            //create the SOAP request
+            //replace username, password (and org + domain, if necessary) with the appropriate info
+            var strRequest =
+                '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:sim="http://schemas.datacontract.org/2004/07/SimpleWebService.Model">' +
+                '<soapenv:Header/>' +
+                '<soapenv:Body>' +
+                '<tem:SetAnswer>' +
+                '<!--Optional:-->' +
+                '<tem:accept>' +
+                '<!--Optional:-->' +
+                '<!--type:string-->' +
+                '<sim:answer>gero et</sim:answer>' +
+                '</tem:accept>' +
+                '</tem:SetAnswer>' +
+                '</soapenv:Body>' +
+                '</soapenv:Envelope>';
+
+            //specify request headers
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml; charset=utf-8');
+            xmlhttp.setRequestHeader('SOAPAction', '"urn:localhost:54520/IAcceptFromMail/SetAnswer"');
+
+            //FOR TESTING: display results in an alert box once the response is received
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    alert(xmlhttp.responseText);
+                }
+            };
+
+            //send the SOAP request
+            xmlhttp.send(strRequest);
+        };
+
+        //build & send the request when the page loads
+        window.onload = function () {
+            soap();
+        };
+
+    </script>
+</body>
+</html>
