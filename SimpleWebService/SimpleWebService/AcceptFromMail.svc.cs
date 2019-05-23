@@ -41,7 +41,12 @@ namespace SimpleWebService
             {
                 Debug.WriteLine("Siker");
             }
-            return accept;
+
+            AcceptModel valasz = new AcceptModel
+            {
+                answer = "Válasz"
+            };
+            return valasz;
         }
     }
 }
